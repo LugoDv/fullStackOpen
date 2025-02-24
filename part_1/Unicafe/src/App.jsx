@@ -1,14 +1,16 @@
 import { useState } from "react";
 
 //desconstrain props
-const Statistics = ({good, neutral, bad}) => {
-  
+const Statistics = ({ good, neutral, bad }) => {
+  const sumAll = good + neutral + bad;
 
-  const sumAll = good + neutral + bad
+  if (sumAll === 0) {
+    return <p> <b>No feedback given</b> </p>;
+  }
 
-  const avg = (good*1+neutral*0-bad*1)/sumAll;
+  const avg = (good * 1 + neutral * 0 - bad * 1) / sumAll;
 
-  const positive = neutral+bad ==0? 0: (good/sumAll)*100
+  const positive = neutral + bad == 0 ? 0 : (good / sumAll) * 100;
   return (
     <>
       <h2>statistics</h2>
@@ -19,8 +21,8 @@ const Statistics = ({good, neutral, bad}) => {
       <p>average {avg}</p>
       <p>positive {positive}%</p>
     </>
-  )
-}
+  );
+};
 
 const Button = ({ handleClick, nameButton }) => {
   return <button onClick={handleClick}>{nameButton}</button>;
@@ -47,8 +49,6 @@ const App = () => {
     setBad(bad + 1);
   };
 
-  
-
   return (
     <div>
       <h2>give feedback</h2>
@@ -57,7 +57,6 @@ const App = () => {
       <Button handleClick={() => setToneutral()} nameButton="neutral"></Button>
       <Button handleClick={() => setToBad()} nameButton="bad" />
       <Statistics good={good} neutral={neutral} bad={bad} />
-
     </div>
   );
 };
