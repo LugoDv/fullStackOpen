@@ -1,21 +1,25 @@
 import { useState } from "react";
 
 const StatisticLine = (props) => {
-
-  
-  
-  return(
-
-    <p>{props.text} : {props.value}</p>
-  )
-} 
+  return (
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
+  );
+};
 
 //desconstrain props
 const Statistics = ({ good, neutral, bad }) => {
   const sumAll = good + neutral + bad;
 
   if (sumAll === 0) {
-    return <p> <b>No feedback given</b> </p>;
+    return (
+      <p>
+        {" "}
+        <b>No feedback given</b>{" "}
+      </p>
+    );
   }
 
   const avg = (good * 1 + neutral * 0 - bad * 1) / sumAll;
@@ -24,14 +28,17 @@ const Statistics = ({ good, neutral, bad }) => {
   return (
     <>
       <h2>statistics</h2>
-      <StatisticLine text ={"good"} value={good}/>
-      <StatisticLine text ={"neutral"} value={neutral}/>
-      <StatisticLine text ={"bad"} value={bad}/>
-      <StatisticLine text ={"all"} value={sumAll}/>
-      <StatisticLine text ={"average"} value={avg}/>
-      <StatisticLine text ={"positive"} value={`${positive}%`}/>
-      
-      
+
+      <table>
+        <tbody>
+          <StatisticLine text={"good"} value={good} />
+          <StatisticLine text={"neutral"} value={neutral} />
+          <StatisticLine text={"bad"} value={bad} />
+          <StatisticLine text={"all"} value={sumAll} />
+          <StatisticLine text={"average"} value={avg} />
+          <StatisticLine text={"positive"} value={`${positive}%`} />
+        </tbody>
+      </table>
     </>
   );
 };
@@ -68,6 +75,7 @@ const App = () => {
       <Button handleClick={() => setToGood()} nameButton="good" />
       <Button handleClick={() => setToneutral()} nameButton="neutral"></Button>
       <Button handleClick={() => setToBad()} nameButton="bad" />
+
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
